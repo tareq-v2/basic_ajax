@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax call</title>
+</head>
+<body>
+    <button id="button">Ajax Load</button>
+    <br>
+    <br>
+    <p id="text"></p>
+    <script>
+        document.getElementById('button').addEventListener('click', loadText);
+
+        function loadText(){
+            var Tareq = new XMLHttpRequest();
+
+            Tareq.open('GET', 'sample.txt', true);
+            console.log('ReadyState:', Tareq.readyState);
+            Tareq.send();
+            
+
+            Tareq.onprogress = function(){
+            console.log('ReadyState:', Tareq.readyState);
+            }
+            // Tareq.onreadystatechange = function(){
+            //     if(this.readyState == 4 && this.status == 200){
+            //         console.log(this.responseText)
+            //     }
+            // }
+            
+            Tareq.onload = function(){
+                if(this.status == 200) {
+                    document.getElementById('text').innerHTML = this.responseText;
+                }
+                if(this.status == 404) {
+                    document.getElementById('text').innerHTML = 'Not Found';
+                }
+            }
+            // ReadyState Values
+            // 0: Request not initialized
+            // 1: Connection eastablish
+            // 2: Request Receive
+            // 4: Request proccess
+            // 4: Response ready to perforn
+        }
+    </script>
+</body>
+</html>
